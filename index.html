@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sweepstakes Gazette</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1814; --ink-soft:#46413a; --faint:#7a7066;
+    --paper:#f4efe2; --paper-2:#efe8d8; --rule:#1a1814; --hair:#c9bfa9;
+    --accent:#7a1f12; /* oxblood */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'EB Garamond','Old Standard TT',Georgia,serif;
+    color:var(--ink); line-height:1.5; min-height:100vh;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.012) 0 2px, transparent 2px 4px),
+      radial-gradient(circle at 20% 0%, rgba(120,31,18,0.04), transparent 45%),
+      var(--paper);
+    padding:28px 16px 60px;
+  }
+  .sheet{
+    max-width:980px; margin:0 auto; background:var(--paper);
+    border:1px solid var(--ink);
+    box-shadow:0 1px 0 var(--ink), 6px 8px 0 rgba(26,24,20,0.10);
+    padding:0;
+  }
+  .pad{padding:26px 34px}
+  /* ---- Masthead ---- */
+  .masthead{text-align:center; border-bottom:3px double var(--ink); padding:22px 20px 16px}
+  .ear{display:flex; justify-content:space-between; font-family:'Old Standard TT',serif;
+    font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--ink-soft);
+    border-bottom:1px solid var(--ink); padding:6px 14px}
+  .nameplate{
+    font-family:'Playfair Display',serif; font-weight:900;
+    font-size:clamp(38px,9vw,86px); line-height:.92; letter-spacing:-1px;
+    cursor:pointer; user-select:none; margin:6px 0 4px;
+  }
+  .nameplate .amp{font-style:italic; font-weight:400}
+  .motto{font-family:'Old Standard TT',serif; font-style:italic; color:var(--ink-soft);
+    font-size:15px; margin-top:6px}
+  .dateline{display:flex; justify-content:space-between; align-items:center;
+    border-top:1px solid var(--ink); border-bottom:1px solid var(--ink);
+    margin-top:16px; padding:5px 14px; font-family:'Old Standard TT',serif;
+    font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-soft)}
+  /* ---- Headlines ---- */
+  .headline{font-family:'Playfair Display',serif; font-weight:900; line-height:1.02;
+    font-size:clamp(30px,6vw,52px); text-align:center; margin:6px 0 4px}
+  .subhead{font-family:'Old Standard TT',serif; font-style:italic; text-align:center;
+    color:var(--ink-soft); font-size:18px; border-bottom:1px solid var(--ink);
+    padding-bottom:16px; margin-bottom:8px}
+  .kicker{font-family:'Old Standard TT',serif; text-transform:uppercase; letter-spacing:3px;
+    font-size:12px; color:var(--accent); font-weight:700; text-align:center}
+  .section-rule{display:flex; align-items:center; gap:14px; margin:26px 0 16px}
+  .section-rule::before,.section-rule::after{content:''; flex:1; height:0; border-top:1px solid var(--ink)}
+  .section-rule span{font-family:'Old Standard TT',serif; text-transform:uppercase;
+    letter-spacing:4px; font-size:13px; font-weight:700}
+  .lead{font-size:18px; text-align:justify; hyphens:auto}
+  .lead::first-letter{font-family:'Playfair Display',serif; font-weight:900; float:left;
+    font-size:62px; line-height:.7; padding:6px 8px 0 0; color:var(--accent)}
+  .byline{font-family:'Old Standard TT',serif; font-size:12px; letter-spacing:1px;
+    text-transform:uppercase; color:var(--faint); text-align:center; margin-bottom:14px}
+  /* ---- Forms / buttons ---- */
+  label.lbl{display:block; font-family:'Old Standard TT',serif; text-transform:uppercase;
+    letter-spacing:2px; font-size:11px; color:var(--ink-soft); margin-bottom:6px}
+  .input{width:100%; background:#fbf8ef; border:1px solid var(--ink); color:var(--ink);
+    padding:12px 14px; font-size:17px; font-family:inherit; margin-bottom:14px}
+  .input:focus{outline:none; box-shadow:inset 0 0 0 1px var(--ink)}
+  textarea.input{min-height:110px; font-family:'Courier New',monospace; font-size:12px; resize:vertical}
+  .btn{display:inline-block; background:var(--ink); color:var(--paper); border:1px solid var(--ink);
+    padding:12px 22px; font-family:'Old Standard TT',serif; text-transform:uppercase;
+    letter-spacing:2px; font-size:13px; font-weight:700; cursor:pointer; transition:.15s; width:100%}
+  .btn:hover{background:var(--accent); border-color:var(--accent)}
+  .btn:disabled{opacity:.35; cursor:not-allowed}
+  .btn.line{background:transparent; color:var(--ink)}
+  .btn.line:hover{background:var(--ink); color:var(--paper)}
+  .btn.sm{width:auto; padding:6px 14px; font-size:11px; letter-spacing:1px}
+  .err{color:var(--accent); font-style:italic; margin-bottom:12px}
+  /* ---- Stats strip ---- */
+  .strip{display:flex; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink); margin:20px 0}
+  .strip .cell{flex:1; text-align:center; padding:14px 8px; border-right:1px solid var(--hair)}
+  .strip .cell:last-child{border-right:none}
+  .strip b{display:block; font-family:'Playfair Display',serif; font-weight:900; font-size:34px}
+  .strip small{font-family:'Old Standard TT',serif; text-transform:uppercase; letter-spacing:2px;
+    font-size:10px; color:var(--ink-soft)}
+  /* ---- Teams index ---- */
+  .index{column-count:4; column-gap:22px; column-rule:1px solid var(--hair)}
+  @media(max-width:760px){.index{column-count:2}}
+  @media(max-width:420px){.index{column-count:1}}
+  .entry{break-inside:avoid; display:flex; gap:7px; align-items:baseline; padding:3px 0;
+    cursor:pointer; font-size:16px; border-bottom:1px dotted var(--hair)}
+  .entry:hover{color:var(--accent)}
+  .entry .fl{font-size:14px}
+  .entry .dots{flex:1; border-bottom:1px dotted var(--hair); transform:translateY(-4px)}
+  /* ---- Allocations (article columns) ---- */
+  .person{break-inside:avoid; border:1px solid var(--ink); padding:16px; margin-bottom:18px; background:#fbf8ef}
+  .articles{column-count:2; column-gap:22px}
+  @media(max-width:680px){.articles{column-count:1}}
+  .person .who{font-family:'Playfair Display',serif; font-weight:900; font-size:22px; line-height:1}
+  .person .meta{font-family:'Old Standard TT',serif; font-style:italic; color:var(--faint);
+    font-size:12px; margin:2px 0 10px; border-bottom:1px solid var(--hair); padding-bottom:8px}
+  .person .crest{float:right; width:62px; height:62px; margin:0 0 6px 10px; border:1px solid var(--ink)}
+  .teamlist{font-size:15px}
+  .teamlist .tl{display:inline; cursor:pointer}
+  .teamlist .tl:hover{color:var(--accent); text-decoration:underline}
+  /* ---- Modal ---- */
+  .modal{position:fixed; inset:0; background:rgba(26,24,20,.55); display:flex;
+    align-items:center; justify-content:center; z-index:50; padding:18px}
+  .box{background:var(--paper); border:1px solid var(--ink);
+    box-shadow:6px 8px 0 rgba(26,24,20,.25); max-width:560px; width:100%;
+    max-height:88vh; overflow:auto; padding:26px 30px}
+  .box .x{float:right; background:none; border:none; font-family:'Playfair Display',serif;
+    font-size:30px; line-height:.6; cursor:pointer; color:var(--ink)}
+  .box .x:hover{color:var(--accent)}
+  .fact{border-top:1px solid var(--hair); padding:12px 0}
+  .fact .ft{font-family:'Old Standard TT',serif; text-transform:uppercase; letter-spacing:2px;
+    font-size:10px; color:var(--accent); font-weight:700; margin-bottom:2px}
+  .fact .fv{font-size:19px}
+  .pill{display:inline-block; border:1px solid var(--ink); font-family:'Old Standard TT',serif;
+    text-transform:uppercase; letter-spacing:2px; font-size:10px; padding:3px 10px; margin-bottom:8px}
+  .foot{border-top:3px double var(--ink); margin-top:30px; padding-top:14px; text-align:center;
+    font-family:'Old Standard TT',serif; font-style:italic; font-size:12px; color:var(--faint); line-height:1.7}
+  code{font-family:'Courier New',monospace; background:#e7dec9; padding:1px 4px}
+  .who-link{color:inherit; text-decoration:none; border-bottom:2px solid var(--accent)}
+  .who-link:hover{color:var(--accent)}
+  .standings{width:100%; border-collapse:collapse; font-size:16px; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink)}
+  .standings th{font-family:'Old Standard TT',serif; text-transform:uppercase; letter-spacing:1px;
+    font-size:10px; color:var(--ink-soft); text-align:left; padding:8px 10px; border-bottom:1px solid var(--ink)}
+  .standings td{padding:9px 10px; border-bottom:1px dotted var(--hair); cursor:pointer}
+  .standings tr:hover td{background:#efe7d4; color:var(--accent)}
+  .standings .rk{font-family:'Playfair Display',serif; font-weight:900; font-size:18px; width:54px}
+  .standings .fl{font-size:15px}
+  .standings .more{text-align:right; font-style:italic; color:var(--faint); font-size:13px; width:64px}
+  a.btn{text-decoration:none; text-align:center}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="ear"><span>No. 26 &middot; Final Edition</span><span>Price: One Free Kick</span></div>
+  <div class="masthead">
+    <div class="kicker">The Office Bulletin</div>
+    <div class="nameplate" onclick="titleClick()">The Sweepstakes <span class="amp">&amp;</span> Gazette</div>
+    <div class="motto">&ldquo;All the Teams That Are Fit to Draw&rdquo; &middot; Established this season</div>
+    <div class="dateline"><span id="dateL">&mdash;</span><span>World Cup Special</span><span id="dateR">Vol. I</span></div>
+  </div>
+  <div class="pad" id="app"></div>
+</div>
+<div id="modals"></div>
+<script>
+/* ====== EMBEDDED DATA (auto-generated) ====== */
+var FLAGS={"Australia": "🇦🇺", "Iran": "🇮🇷", "Iraq": "🇮🇶", "Japan": "🇯🇵", "Jordan": "🇯🇴", "Qatar": "🇶🇦", "Saudi Arabia": "🇸🇦", "South Korea": "🇰🇷", "Uzbekistan": "🇺🇿", "Algeria": "🇩🇿", "Cape Verde": "🇨🇻", "DR Congo": "🇨🇩", "Egypt": "🇪🇬", "Ghana": "🇬🇭", "Ivory Coast": "🇨🇮", "Morocco": "🇲🇦", "Senegal": "🇸🇳", "South Africa": "🇿🇦", "Tunisia": "🇹🇳", "Canada": "🇨🇦", "Curaçao": "🇨🇼", "Haiti": "🇭🇹", "Mexico": "🇲🇽", "Panama": "🇵🇦", "United States": "🇺🇸", "Argentina": "🇦🇷", "Brazil": "🇧🇷", "Colombia": "🇨🇴", "Ecuador": "🇪🇨", "Paraguay": "🇵🇾", "Uruguay": "🇺🇾", "New Zealand": "🇳🇿", "Austria": "🇦🇹", "Belgium": "🇧🇪", "Bosnia and Herzegovina": "🇧🇦", "Croatia": "🇭🇷", "Czech Republic": "🇨🇿", "England": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "France": "🇫🇷", "Germany": "🇩🇪", "Netherlands": "🇳🇱", "Norway": "🇳🇴", "Portugal": "🇵🇹", "Scotland": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "Spain": "🇪🇸", "Sweden": "🇸🇪", "Switzerland": "🇨🇭", "Turkey": "🇹🇷"};
+var COUNTRY_DATA={"Australia": {"animal": "Red kangaroo", "artist": "Kylie Minogue", "novel": "Voss — Patrick White"}, "Iran": {"animal": "Asiatic lion (Persian lion)", "artist": "Googoosh", "novel": "The Blind Owl — Sadegh Hedayat"}, "Iraq": {"animal": "Chukar partridge", "artist": "Kadim Al Sahir", "novel": "Frankenstein in Baghdad — Ahmed Saadawi"}, "Japan": {"animal": "Green pheasant", "artist": "Ayumi Hamasaki", "novel": "The Tale of Genji — Murasaki Shikibu"}, "Jordan": {"animal": "Arabian oryx", "artist": "Omar Al-Abdallat", "novel": "Pillars of Salt — Fadia Faqir"}, "Qatar": {"animal": "Arabian oryx", "artist": "Fahad Al Kubaisi", "novel": "The Corsair — Abdulaziz Al-Mahmoud"}, "Saudi Arabia": {"animal": "Arabian wolf", "artist": "Mohammed Abdu", "novel": "Cities of Salt — Abdelrahman Munif"}, "South Korea": {"animal": "Korean magpie", "artist": "BTS", "novel": "Please Look After Mom — Kyung-sook Shin"}, "Uzbekistan": {"animal": "Snow leopard", "artist": "Sevara Nazarkhan", "novel": "Days Gone By (O'tkan kunlar) — Abdulla Qodiriy"}, "Algeria": {"animal": "Fennec fox", "artist": "Khaled", "novel": "Nedjma — Kateb Yacine"}, "Cape Verde": {"animal": "Cape Verde warbler", "artist": "Cesária Évora", "novel": "Chiquinho — Baltasar Lopes da Silva"}, "DR Congo": {"animal": "Okapi", "artist": "Papa Wemba", "novel": "Tram 83 — Fiston Mwanza Mujila"}, "Egypt": {"animal": "Steppe eagle", "artist": "Umm Kulthum", "novel": "Palace Walk — Naguib Mahfouz"}, "Ghana": {"animal": "Tawny eagle", "artist": "Daddy Lumba", "novel": "The Beautyful Ones Are Not Yet Born — Ayi Kwei Armah"}, "Ivory Coast": {"animal": "African elephant", "artist": "Alpha Blondy", "novel": "Allah Is Not Obliged — Ahmadou Kourouma"}, "Morocco": {"animal": "Barbary lion", "artist": "Saad Lamjarred", "novel": "For Bread Alone — Mohamed Choukri"}, "Senegal": {"animal": "Lion", "artist": "Youssou N'Dour", "novel": "So Long a Letter — Mariama Bâ"}, "South Africa": {"animal": "Springbok", "artist": "Miriam Makeba", "novel": "Cry, the Beloved Country — Alan Paton"}, "Tunisia": {"animal": "Dromedary camel", "artist": "Saber Rebaï", "novel": "The Italian — Shukri Mabkhout"}, "Canada": {"animal": "North American beaver", "artist": "Céline Dion", "novel": "The Handmaid's Tale — Margaret Atwood"}, "Curaçao": {"animal": "Curaçao white-tailed deer", "artist": "Izaline Calister", "novel": "Dubbelspel (Double Play) — Frank Martinus Arion"}, "Haiti": {"animal": "Hispaniolan trogon", "artist": "Wyclef Jean", "novel": "Masters of the Dew — Jacques Roumain"}, "Mexico": {"animal": "Golden eagle", "artist": "Luis Miguel", "novel": "Pedro Páramo — Juan Rulfo"}, "Panama": {"animal": "Harpy eagle", "artist": "Rubén Blades", "novel": "The Golden Horse — Joaquín Beleño"}, "United States": {"animal": "Bald eagle", "artist": "Elvis Presley", "novel": "The Great Gatsby — F. Scott Fitzgerald"}, "Argentina": {"animal": "Rufous hornero", "artist": "Mercedes Sosa", "novel": "Hopscotch — Julio Cortázar"}, "Brazil": {"animal": "Rufous-bellied thrush", "artist": "Roberto Carlos", "novel": "Dom Casmurro — Machado de Assis"}, "Colombia": {"animal": "Andean condor", "artist": "Shakira", "novel": "One Hundred Years of Solitude — Gabriel García Márquez"}, "Ecuador": {"animal": "Andean condor", "artist": "Julio Jaramillo", "novel": "The Villagers (Huasipungo) — Jorge Icaza"}, "Paraguay": {"animal": "Pampas fox", "artist": "Luis Alberto del Paraná", "novel": "I, the Supreme — Augusto Roa Bastos"}, "Uruguay": {"animal": "Southern lapwing", "artist": "Jorge Drexler", "novel": "The Truce — Mario Benedetti"}, "New Zealand": {"animal": "Kiwi", "artist": "Lorde", "novel": "The Bone People — Keri Hulme"}, "Austria": {"animal": "Black eagle", "artist": "Falco", "novel": "The Man Without Qualities — Robert Musil"}, "Belgium": {"animal": "Lion (Leo Belgicus)", "artist": "Jacques Brel", "novel": "The Sorrow of Belgium — Hugo Claus"}, "Bosnia and Herzegovina": {"animal": "Grey wolf", "artist": "Dino Merlin", "novel": "The Bridge on the Drina — Ivo Andrić"}, "Croatia": {"animal": "Pine marten (kuna)", "artist": "Oliver Dragojević", "novel": "The Return of Philip Latinovicz — Miroslav Krleža"}, "Czech Republic": {"animal": "Double-tailed lion", "artist": "Karel Gott", "novel": "The Unbearable Lightness of Being — Milan Kundera"}, "England": {"animal": "Lion", "artist": "The Beatles", "novel": "Great Expectations — Charles Dickens"}, "France": {"animal": "Gallic rooster", "artist": "Edith Piaf", "novel": "Madame Bovary — Gustave Flaubert"}, "Germany": {"animal": "Federal eagle (Bundesadler)", "artist": "Scorpions", "novel": "The Tin Drum — Günter Grass"}, "Netherlands": {"animal": "Lion", "artist": "André Rieu", "novel": "The Discovery of Heaven — Harry Mulisch"}, "Norway": {"animal": "Eurasian elk (moose)", "artist": "a-ha", "novel": "Hunger — Knut Hamsun"}, "Portugal": {"animal": "Iberian wolf", "artist": "Amália Rodrigues", "novel": "Blindness — José Saramago"}, "Scotland": {"animal": "Unicorn", "artist": "Annie Lennox", "novel": "Sunset Song — Lewis Grassic Gibbon"}, "Spain": {"animal": "Bull", "artist": "Julio Iglesias", "novel": "Don Quixote — Miguel de Cervantes"}, "Sweden": {"animal": "Eurasian elk (moose)", "artist": "ABBA", "novel": "The Long Ships — Frans G. Bengtsson"}, "Switzerland": {"animal": "Alpine ibex", "artist": "DJ BoBo", "novel": "Heidi — Johanna Spyri"}, "Turkey": {"animal": "Grey wolf", "artist": "Tarkan", "novel": "My Name Is Red — Orhan Pamuk"}};
+/* FIFA/Coca-Cola Men's World Ranking — official list of 1 April 2026 (next update 11 June 2026) */
+var FIFA_RANK={"France":1,"Spain":2,"Argentina":3,"England":4,"Portugal":5,"Brazil":6,"Netherlands":7,"Morocco":8,"Belgium":9,"Germany":10,"Croatia":11,"Colombia":13,"Senegal":14,"Mexico":15,"United States":16,"Uruguay":17,"Japan":18,"Switzerland":19,"Iran":21,"Turkey":22,"Ecuador":23,"Austria":24,"South Korea":25,"Australia":27,"Algeria":28,"Egypt":29,"Canada":30,"Norway":31,"Panama":33,"Ivory Coast":34,"Sweden":38,"Paraguay":40,"Czech Republic":41,"Scotland":43,"Tunisia":44,"DR Congo":46,"Uzbekistan":50,"Qatar":55,"Iraq":57,"South Africa":60,"Saudi Arabia":61,"Jordan":63,"Bosnia and Herzegovina":65,"Cape Verde":69,"Ghana":74,"Curaçao":82,"Haiti":83,"New Zealand":85};
+function meanRank(teams){if(!teams||!teams.length)return null;var s=0,n=0;for(var i=0;i<teams.length;i++){var r=FIFA_RANK[teams[i]];if(r){s+=r;n++;}}return n?(s/n):null;}
+var TEAMS=["Australia", "Iran", "Iraq", "Japan", "Jordan", "Qatar", "Saudi Arabia", "South Korea", "Uzbekistan", "Algeria", "Cape Verde", "DR Congo", "Egypt", "Ghana", "Ivory Coast", "Morocco", "Senegal", "South Africa", "Tunisia", "Canada", "Curaçao", "Haiti", "Mexico", "Panama", "United States", "Argentina", "Brazil", "Colombia", "Ecuador", "Paraguay", "Uruguay", "New Zealand", "Austria", "Belgium", "Bosnia and Herzegovina", "Croatia", "Czech Republic", "England", "France", "Germany", "Netherlands", "Norway", "Portugal", "Scotland", "Spain", "Sweden", "Switzerland", "Turkey"];
+
+/* ======================================================================
+RESULTS: the locked, shared draw.
+While this is null, the page is in ENTRY mode (each visitor enters their
+name locally). To publish a draw that EVERYONE sees identically across all
+browsers on GitHub Pages:
+1. Open the page, enter the entrants (or click the title 5x for admin).
+2. In the admin panel, click "Run Draw", then "Export for GitHub".
+3. Copy the generated block and PASTE IT BELOW, replacing `null`.
+4. Commit & push. The published page now shows that fixed draw to all.
+====================================================================== */
+var RESULTS = null;
+/* ====== END EDITABLE SECTION ====== */
+
+var ADMIN_CODE = "kickoff26"; // change before sharing
+var LS_KEY = "wcsweep_entries_v1";
+
+/* ===== Deterministic geometric emblem ===== */
+function hashTeams(teams){var s=teams.slice().sort().join("|");var h=2166136261>>>0;
+for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h>>>0;}
+function mulberry32(a){return function(){a|=0;a=(a+0x6D2B79F5)|0;var t=Math.imul(a^(a>>>15),1|a);
+t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;};}
+var PALETTES=[["#00ffb2","#0a2a24","#06f0c0","#ff006e"],["#ff006e","#2a0a1a","#ff5e9c","#ffd23f"],
+["#ffd23f","#2a230a","#ffe27a","#00d4ff"],["#00d4ff","#0a1f2a","#6ee6ff","#a855f7"],
+["#a855f7","#1d0a2a","#c98bff","#00ffb2"],["#ff7849","#2a140a","#ffa87a","#36e0c0"]];
+function poly(cx,cy,r,sides,rot,jit,rnd){var d="";for(var i=0;i<sides;i++){var a=rot+(i/sides)*Math.PI*2;
+var rr=r*(1-jit+rnd()*jit*2);d+=(i?"L":"M")+(cx+Math.cos(a)*rr).toFixed(1)+","+(cy+Math.sin(a)*rr).toFixed(1)+" ";}return d+"Z";}
+function buildEmblem(teams,size){size=size||132;var seed=hashTeams(teams);var rnd=mulberry32(seed);
+var p=PALETTES[seed%PALETTES.length];var accent=p[0],dark=p[1],accent2=p[2],spark=p[3];
+var c=size/2,rings=3+(seed%3),sides=3+(seed%6),nodes=teams.length,parts=[];
+parts.push('<rect x="0" y="0" width="'+size+'" height="'+size+'" rx="20" fill="'+dark+'"/>');
+parts.push('<rect x="0" y="0" width="'+size+'" height="'+size+'" rx="20" fill="url(#g'+(seed%1000)+')" opacity="0.5"/>');
+for(var i=rings;i>=1;i--){var r=(i/rings)*(size*0.42),rot=rnd()*Math.PI,op=0.12+(i/rings)*0.4,col=i%2===0?accent:accent2;
+parts.push('<path d="'+poly(c,c,r,sides,rot,0.12,rnd)+'" fill="none" stroke="'+col+'" stroke-width="'+(0.6+rnd()*1.6).toFixed(2)+'" opacity="'+op.toFixed(2)+'"/>');}
+var orbit=size*0.34;
+for(var j=0;j<nodes;j++){var a=(j/nodes)*Math.PI*2+seed,x=c+Math.cos(a)*orbit,y=c+Math.sin(a)*orbit,rad=1.6+rnd()*2.6;
+parts.push('<line x1="'+c+'" y1="'+c+'" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="'+accent+'" stroke-width="0.5" opacity="0.25"/>');
+parts.push('<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+rad.toFixed(1)+'" fill="'+(j%5===0?spark:accent)+'"/>');}
+parts.push('<path d="'+poly(c,c,size*0.12,sides,rnd()*6,0.05,rnd)+'" fill="'+spark+'" opacity="0.9"/>');
+parts.push('<circle cx="'+c+'" cy="'+c+'" r="'+(size*0.05).toFixed(1)+'" fill="'+dark+'"/>');
+var grad='<radialGradient id="g'+(seed%1000)+'" cx="50%" cy="40%" r="70%"><stop offset="0%" stop-color="'+accent2+'" stop-opacity="0.35"/><stop offset="100%" stop-color="'+dark+'" stop-opacity="0"/></radialGradient>';
+return '<svg xmlns="http://www.w3.org/2000/svg" width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'"><defs>'+grad+'</defs>'+parts.join("")+'</svg>';}
+
+/* ===== Draw logic ===== */
+function runDraw(){
+var players=getEntries();if(!players.length)return null;
+var t=TEAMS.slice();
+for(var i=t.length-1;i>0;i--){var k=Math.floor(Math.random()*(i+1));var tmp=t[i];t[i]=t[k];t[k]=tmp;}
+var per=Math.floor(TEAMS.length/players.length);
+var allocations=players.map(function(p){return {name:p,teams:[]};});
+var idx=0;
+for(var pp=0;pp<players.length;pp++)for(var q=0;q<per;q++)allocations[pp].teams.push(t[idx++]);
+return {allocations:allocations,unallocated:t.slice(idx)};
+}
+
+/* ===== Render ===== */
+var state={admin:false,authed:false,clicks:0,submitted:false,draw:null,_country:null,_copied:false,_copiedExport:false};
+if(typeof RESULTS!=="undefined"&&RESULTS&&RESULTS.allocations){state.draw=RESULTS;}
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function getEntries(){try{return JSON.parse(localStorage.getItem(LS_KEY)||"[]");}catch(e){return [];}}
+function setEntries(a){localStorage.setItem(LS_KEY,JSON.stringify(a));}
+
+function setDateline(){
+var d=new Date();
+var opt={weekday:'long',year:'numeric',month:'long',day:'numeric'};
+var L=document.getElementById("dateL"); if(L)L.textContent=d.toLocaleDateString(undefined,opt);
+}
+
+function teamEntry(name){
+return '<div class="entry" onclick="showCountry(\''+name.replace(/'/g,"\\'")+'\')">'
++'<span class="fl">'+(FLAGS[name]||"")+'</span><span>'+esc(name)+'</span><span class="dots"></span></div>';
+}
+function teamInline(name){
+return '<span class="tl" onclick="showCountry(\''+name.replace(/'/g,"\\'")+'\')">'+( FLAGS[name]||"")+" "+esc(name)+'</span>';
+}
+
+function render(){
+var app=document.getElementById("app");
+// hash routing: #/u/<name> shows a profile page
+var hash=location.hash||"";
+if(hash.indexOf("#/u/")===0){
+var who=decodeURIComponent(hash.slice(4));
+renderProfile(who);
+return;
+}
+var entries=getEntries();
+var drawn=!!state.draw;
+var h='';
+
+if(drawn){
+h+='<div class="kicker">Extraordinary Edition</div>';
+h+='<h1 class="headline">The Draw Is In &mdash; Fortunes Are Sealed</h1>';
+h+='<div class="subhead">Forty-eight nations apportioned by the hand of chance; readers may consult the dispatches below.</div>';
+h+='<div class="byline">By Our Sweepstakes Correspondent &middot; Tap any nation for our Almanac notes</div>';
+h+='<div class="articles">';
+state.draw.allocations.forEach(function(a){
+var mr=meanRank(a.teams);
+h+='<div class="person"><div class="crest">'+buildEmblem(a.teams,62)+'</div>'+
+'<div class="who"><a class="who-link" href="#/u/'+encodeURIComponent(a.name)+'">'+esc(a.name)+'</a></div>'+
+'<div class="meta">Holder of '+a.teams.length+' nations &middot; Mean FIFA rank '+(mr!=null?mr.toFixed(1):"&mdash;")+'</div>'+
+'<div class="teamlist">'+a.teams.map(teamInline).join(' &middot; ')+'</div>'+
+'<div style="margin-top:10px"><a class="btn line sm" href="#/u/'+encodeURIComponent(a.name)+'">Read Full Profile &rarr;</a></div></div>';
+});
+h+='</div>';
+if(state.draw.unallocated&&state.draw.unallocated.length){
+h+='<div class="section-rule"><span>Unclaimed</span></div>'+
+'<div class="teamlist" style="text-align:center;font-size:16px">'+state.draw.unallocated.map(teamInline).join(' &middot; ')+'</div>';
+}
+}else{
+h+='<div class="kicker">Subscriptions Now Open</div>';
+h+='<h1 class="headline">Enter the Grand Sweepstakes</h1>';
+h+='<div class="subhead">Lend us your name and the draw shall furnish you with nations entire.</div>';
+h+='<p class="byline">Forty-eight teams &middot; One glorious draw &middot; Bragging rights until the final whistle</p>';
+if(!state.submitted){
+h+='<div style="max-width:460px;margin:0 auto">'+
+'<label class="lbl">Your Name</label>'+
+'<input class="input" id="nameInput" placeholder="J. Doe, Esq." onkeydown="if(event.key===\'Enter\')enter()">'+
+'<div class="err" id="err"></div>'+
+'<button class="btn" onclick="enter()">Add My Name to the Register</button></div>';
+}else{
+h+='<div style="max-width:520px;margin:0 auto;text-align:center">'+
+'<p class="lead" style="text-align:center">You are duly enrolled. Your name rests upon this device\'s register; when the organiser conducts the draw and publishes this gazette, return here to read your fortune.</p>'+
+'<button class="btn line sm" style="margin-top:10px" onclick="state.submitted=false;render()">Enrol Another Name</button></div>';
+}
+if(entries.length){
+h+='<div class="section-rule"><span>Register &middot; This Device</span></div>';
+entries.forEach(function(n,i){
+h+='<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dotted var(--hair);font-size:16px">'+
+'<span>'+esc(n)+'</span><button class="btn line sm" onclick="removeEntry('+i+')">Strike</button></div>';
+});
+}
+}
+
+h+='<div class="strip">'+
+'<div class="cell"><b>'+(drawn?state.draw.allocations.length:entries.length)+'</b><small>'+(drawn?"Subscribers":"Enrolled Here")+'</small></div>'+
+'<div class="cell"><b>'+TEAMS.length+'</b><small>Nations</small></div>'+
+'<div class="cell"><b>'+(drawn?"Sealed":"Open")+'</b><small>The Draw</small></div></div>';
+
+h+='<div class="section-rule"><span>The Nations &middot; An Almanac</span></div>';
+h+='<p class="byline">Tap any nation below for its beast, its balladeer, and a book</p>';
+h+='<div class="index">'+TEAMS.map(teamEntry).join('')+'</div>';
+
+h+='<div class="foot">The Sweepstakes &amp; Gazette &middot; Printed on this device for the amusement of colleagues.<br>'+
+'Almanac notes are light trivia; &ldquo;iconic balladeer&rdquo; denotes a celebrated act, not an audited sales ledger.</div>';
+
+app.innerHTML=h;
+setDateline();
+renderModals();
+}
+
+/* ===== Modals ===== */
+function renderModals(){
+var m=document.getElementById("modals");
+if(!m)return;
+var out='';
+if(state._country)out+=countryModalHTML(state._country);
+if(state.admin)out+=adminModalHTML();
+m.innerHTML=out;
+}
+function countryModalHTML(name){
+var d=COUNTRY_DATA[name]||{};
+return '<div class="modal" onclick="if(event.target===this)closeCountry()">'+
+'<div class="box"><button class="x" onclick="closeCountry()">&times;</button>'+
+'<div style="font-size:44px;line-height:1">'+(FLAGS[name]||"")+'</div>'+
+'<div class="pill">From the Almanac</div>'+
+'<h2 style="font-family:\'Playfair Display\',serif;font-weight:900;font-size:34px;margin:2px 0 10px">'+esc(name)+'</h2>'+
+'<div class="fact"><div class="ft">FIFA World Ranking</div><div class="fv">'+(FIFA_RANK[name]?("No. "+FIFA_RANK[name]+" in the world"):"&mdash;")+'</div></div>'+
+'<div class="fact"><div class="ft">National Animal</div><div class="fv">'+esc(d.animal||"&mdash;")+'</div></div>'+
+'<div class="fact"><div class="ft">Iconic Recording Artist</div><div class="fv">'+esc(d.artist||"&mdash;")+'</div></div>'+
+'<div class="fact"><div class="ft">A Novel from These Shores</div><div class="fv">'+esc(d.novel||"&mdash;")+'</div></div>'+
+'</div></div>';
+}
+function adminModalHTML(){
+var entries=getEntries();
+var inner='<button class="x" onclick="closeAdmin()">&times;</button>'+
+'<div class="pill">Editor\'s Desk</div>'+
+'<h2 style="font-family:\'Playfair Display\',serif;font-weight:900;font-size:30px;margin:2px 0 14px">Organiser Control</h2>';
+if(!state.authed){
+inner+='<label class="lbl">Admin Code</label>'+
+'<input class="input" id="acode" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" onkeydown="if(event.key===\'Enter\')tryAuth()">'+
+'<button class="btn" onclick="tryAuth()">Unlock the Press</button>';
+}else{
+var per=Math.floor(TEAMS.length/Math.max(entries.length,1));
+inner+='<p style="font-style:italic;color:var(--ink-soft);margin-bottom:6px">'+entries.length+' enrolled on this device &middot; '+per+' nations each &middot; '+(entries.length?TEAMS.length%entries.length:TEAMS.length)+' unclaimed.</p>'+
+'<p style="font-size:14px;color:var(--faint);margin-bottom:14px">Names are stored per-browser. Gather everyone on one device, run the draw, then export &amp; commit to publish a shared gazette for all readers.</p>';
+entries.forEach(function(n){inner+='<div style="font-size:15px;border-bottom:1px dotted var(--hair);padding:4px 0">'+esc(n)+'</div>';});
+inner+='<button class="btn" style="margin-top:14px" onclick="adminDraw()" '+(entries.length?'':'disabled')+'>Conduct the Draw</button>';
+if(state.draw){
+inner+='<div class="section-rule"><span>Result</span></div>'+
+'<button class="btn line sm" style="margin-bottom:12px" onclick="copyAll()">'+(state._copied?"Copied ✓":"Copy as Text")+'</button>';
+state.draw.allocations.forEach(function(a){
+inner+='<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:12px">'+
+'<div style="width:54px;flex-shrink:0;border:1px solid var(--ink)">'+buildEmblem(a.teams,54)+'</div>'+
+'<div style="flex:1;min-width:0"><strong>'+esc(a.name)+'</strong> <span style="font-size:12px;color:var(--faint)">&middot; mean rank '+(meanRank(a.teams)!=null?meanRank(a.teams).toFixed(1):"&mdash;")+'</span>'+
+'<div style="font-size:13px;color:var(--ink-soft);margin:2px 0">'+a.teams.map(function(t){return (FLAGS[t]||"")+" "+t;}).join(" &middot; ")+'</div>'+
+'<button class="btn line sm" onclick="dlCrest('+JSON.stringify(a.name).replace(/"/g,"&quot;")+')">Download Crest</button></div></div>';
+});
+if(state.draw.unallocated&&state.draw.unallocated.length)
+inner+='<div style="color:var(--accent);font-size:14px;margin-bottom:12px"><strong>Unclaimed:</strong> '+state.draw.unallocated.map(function(t){return (FLAGS[t]||"")+" "+t;}).join(" &middot; ")+'</div>';
+inner+='<div class="section-rule"><span>Export for GitHub</span></div>'+
+'<p style="font-size:14px;color:var(--ink-soft);margin-bottom:8px">Paste this into <b>index.html</b>, replacing <code>var RESULTS = null;</code>, then commit. Every reader then sees this exact draw.</p>'+
+'<textarea class="input" readonly onclick="this.select()">var RESULTS = '+JSON.stringify(state.draw)+';</textarea>'+
+'<button class="btn" onclick="copyExport()">'+(state._copiedExport?"Copied ✓":"Copy Export Block")+'</button>';
+}
+inner+='<button class="btn line" style="margin-top:14px" onclick="wipe()">Clear Register on This Device</button>';
+}
+return '<div class="modal" onclick="if(event.target===this)closeAdmin()"><div class="box">'+inner+'</div></div>';
+}
+
+/* ===== Actions ===== */
+function enter(){
+var el=document.getElementById("nameInput"); var v=(el.value||"").trim();
+var e=document.getElementById("err");
+if(!v){e.textContent="Pray, enter your name.";return;}
+var arr=getEntries();
+if(arr.map(function(x){return x.toLowerCase();}).indexOf(v.toLowerCase())>=0){state.submitted=true;render();return;}
+arr.push(v);setEntries(arr);state.submitted=true;render();
+}
+function removeEntry(i){var a=getEntries();a.splice(i,1);setEntries(a);render();}
+function titleClick(){state.clicks++;if(state.clicks>=5){state.admin=true;state.clicks=0;render();}}
+function showCountry(name){state._country=name;renderModals();}
+function closeCountry(){state._country=null;renderModals();}
+function closeAdmin(){state.admin=false;renderModals();}
+function tryAuth(){var v=document.getElementById("acode").value;if(v===ADMIN_CODE){state.authed=true;renderModals();}else{alert("Wrong code");}}
+function adminDraw(){var r=runDraw();if(r){state.draw=r;renderModals();}}
+function wipe(){if(confirm("Clear all names stored on this device?")){setEntries([]);state.draw=(typeof RESULTS!=="undefined"&&RESULTS&&RESULTS.allocations)?RESULTS:null;render();}}
+function copyAll(){
+if(!state.draw)return;
+var lines=state.draw.allocations.map(function(a){var mr=meanRank(a.teams);return a.name+(mr!=null?(" — mean FIFA rank "+mr.toFixed(1)):"")+"\n"+a.teams.map(function(t){return "  "+(FLAGS[t]||"")+" "+t+(FIFA_RANK[t]?(" (#"+FIFA_RANK[t]+")"):"");}).join("\n");});
+if(state.draw.unallocated&&state.draw.unallocated.length)lines.push("UNCLAIMED\n"+state.draw.unallocated.map(function(t){return "  "+(FLAGS[t]||"")+" "+t;}).join("\n"));
+copyText("WORLD CUP SWEEPSTAKES — ALLOCATIONS\n\n"+lines.join("\n\n"));
+state._copied=true;renderModals();setTimeout(function(){state._copied=false;renderModals();},2000);
+}
+function copyExport(){copyText('var RESULTS = '+JSON.stringify(state.draw)+';');state._copiedExport=true;renderModals();setTimeout(function(){state._copiedExport=false;renderModals();},2000);}
+function copyText(txt){
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).catch(fb);}else fb();
+function fb(){var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(e){}document.body.removeChild(ta);}
+}
+function dlCrest(name){
+var a=state.draw.allocations.filter(function(x){return x.name===name;})[0];if(!a)return;
+var svg=buildEmblem(a.teams,512);var blob=new Blob([svg],{type:"image/svg+xml"});
+var url=URL.createObjectURL(blob);var link=document.createElement("a");link.href=url;
+link.download="crest-"+name.replace(/\s+/g,"_")+".svg";link.click();URL.revokeObjectURL(url);
+}
+
+/* ===== Profile page (#/u/<name>) ===== */
+function findAlloc(name){
+if(!state.draw||!state.draw.allocations)return null;
+var lc=String(name).toLowerCase();
+var hit=state.draw.allocations.filter(function(a){return a.name.toLowerCase()===lc;})[0];
+return hit||null;
+}
+function ordinal(n){var s=["th","st","nd","rd"],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
+function renderProfile(name){
+var app=document.getElementById("app");
+var a=findAlloc(name);
+if(!a){
+app.innerHTML='<div class="kicker">Profile</div>'+
+'<h1 class="headline">No Such Subscriber</h1>'+
+'<div class="subhead">We hold no dispatch for &ldquo;'+esc(name)+'&rdquo;. Perhaps the draw is not yet published.</div>'+
+'<div style="text-align:center;margin-top:18px"><a class="btn line sm" href="#/">&#8592; Back to the Front Page</a></div>';
+renderModals();return;
+}
+var mr=meanRank(a.teams);
+var sorted=a.teams.slice().sort(function(x,y){return (FIFA_RANK[x]||999)-(FIFA_RANK[y]||999);});
+var best=sorted[0], worst=sorted[sorted.length-1];
+var h='';
+h+='<div style="text-align:center"><a class="btn line sm" href="#/">&#8592; The Front Page</a></div>';
+h+='<div class="kicker" style="margin-top:14px">Subscriber Dispatch</div>';
+h+='<h1 class="headline">'+esc(a.name)+'</h1>';
+h+='<div class="subhead">A full accounting of '+esc(a.name)+'\'s '+a.teams.length+' nations &mdash; their beasts, balladeers, and standing in the world.</div>';
+h+='<div style="display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap;margin:6px 0 4px">'+
+'<div style="width:120px;height:120px;border:1px solid var(--ink)">'+buildEmblem(a.teams,120)+'</div></div>';
+h+='<div class="strip">'+
+'<div class="cell"><b>'+a.teams.length+'</b><small>Nations Held</small></div>'+
+'<div class="cell"><b>'+(mr!=null?mr.toFixed(1):"&mdash;")+'</b><small>Mean FIFA Rank</small></div>'+
+'<div class="cell"><b>'+(FIFA_RANK[best]||"&mdash;")+'</b><small>Best Team Rank</small></div></div>';
+h+='<p class="byline">Highest-ranked: '+esc(best)+' ('+ordinal(FIFA_RANK[best]||0)+') &middot; Lowest: '+esc(worst)+' ('+ordinal(FIFA_RANK[worst]||0)+')</p>';
+h+='<div class="section-rule"><span>The Squad &middot; By World Ranking</span></div>';
+h+='<table class="standings"><thead><tr><th>FIFA</th><th>Nation</th><th></th></tr></thead><tbody>';
+sorted.forEach(function(t){
+h+='<tr onclick="showCountry(\''+t.replace(/'/g,"\\'")+'\')">'+
+'<td class="rk">'+(FIFA_RANK[t]||"&mdash;")+'</td>'+
+'<td><span class="fl">'+(FLAGS[t]||"")+'</span> '+esc(t)+'</td>'+
+'<td class="more">view &rsaquo;</td></tr>';
+});
+h+='</tbody></table>';
+h+='<p class="byline" style="margin-top:10px">Tap any nation for its ranking, national animal, iconic artist, and a novel.</p>';
+h+='<div class="section-rule"><span>Share This Dispatch</span></div>';
+h+='<div style="max-width:520px;margin:0 auto"><input class="input" id="shareUrl" readonly value="" onclick="this.select()">'+
+'<button class="btn" onclick="copyShare()">'+(state._copiedShare?"Link Copied ✓":"Copy Link to This Profile")+'</button></div>';
+h+='<div class="foot">The Sweepstakes &amp; Gazette &middot; FIFA/Coca-Cola World Ranking as of 1 April 2026.</div>';
+app.innerHTML=h;
+var su=document.getElementById("shareUrl"); if(su)su.value=location.href;
+setDateline();
+renderModals();
+}
+function copyShare(){copyText(location.href);state._copiedShare=true;render();setTimeout(function(){state._copiedShare=false;render();},2000);}
+
+/* ===== Router ===== */
+window.addEventListener("hashchange", render);
+
+render();
+</script>
+</body>
+</html>
