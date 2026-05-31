@@ -6,7 +6,7 @@
 <title>The Sweepstakes Gazette</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#1a1814; --ink-soft:#46413a; --faint:#7a7066;
@@ -16,7 +16,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
   body{
-    font-family:'EB Garamond','Old Standard TT',Georgia,serif;
+    font-family:'Roboto',sans-serif;
     color:var(--ink); line-height:1.5; min-height:100vh;
     background:
       repeating-linear-gradient(0deg, rgba(0,0,0,0.012) 0 2px, transparent 2px 4px),
@@ -33,47 +33,47 @@
   .pad{padding:26px 34px}
   /* ---- Masthead ---- */
   .masthead{text-align:center; border-bottom:3px double var(--ink); padding:22px 20px 16px}
-  .ear{display:flex; justify-content:space-between; font-family:'Old Standard TT',serif;
+  .ear{display:flex; justify-content:space-between; font-family:'Roboto',sans-serif;
     font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--ink-soft);
     border-bottom:1px solid var(--ink); padding:6px 14px}
   .nameplate{
-    font-family:'Playfair Display',serif; font-weight:900;
+    font-family:'Roboto',sans-serif; font-weight:900;
     font-size:clamp(38px,9vw,86px); line-height:.92; letter-spacing:-1px;
     cursor:pointer; user-select:none; margin:6px 0 4px;
   }
   .nameplate .amp{font-style:italic; font-weight:400}
-  .motto{font-family:'Old Standard TT',serif; font-style:italic; color:var(--ink-soft);
+  .motto{font-family:'Roboto',sans-serif; font-style:italic; color:var(--ink-soft);
     font-size:15px; margin-top:6px}
   .dateline{display:flex; justify-content:space-between; align-items:center;
     border-top:1px solid var(--ink); border-bottom:1px solid var(--ink);
-    margin-top:16px; padding:5px 14px; font-family:'Old Standard TT',serif;
+    margin-top:16px; padding:5px 14px; font-family:'Roboto',sans-serif;
     font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-soft)}
   /* ---- Headlines ---- */
-  .headline{font-family:'Playfair Display',serif; font-weight:900; line-height:1.02;
+  .headline{font-family:'Roboto',sans-serif; font-weight:900; line-height:1.02;
     font-size:clamp(30px,6vw,52px); text-align:center; margin:6px 0 4px}
-  .subhead{font-family:'Old Standard TT',serif; font-style:italic; text-align:center;
+  .subhead{font-family:'Roboto',sans-serif; font-style:italic; text-align:center;
     color:var(--ink-soft); font-size:18px; border-bottom:1px solid var(--ink);
     padding-bottom:16px; margin-bottom:8px}
-  .kicker{font-family:'Old Standard TT',serif; text-transform:uppercase; letter-spacing:3px;
+  .kicker{font-family:'Roboto',sans-serif; text-transform:uppercase; letter-spacing:3px;
     font-size:12px; color:var(--accent); font-weight:700; text-align:center}
   .section-rule{display:flex; align-items:center; gap:14px; margin:26px 0 16px}
   .section-rule::before,.section-rule::after{content:''; flex:1; height:0; border-top:1px solid var(--ink)}
-  .section-rule span{font-family:'Old Standard TT',serif; text-transform:uppercase;
+  .section-rule span{font-family:'Roboto',sans-serif; text-transform:uppercase;
     letter-spacing:4px; font-size:13px; font-weight:700}
   .lead{font-size:18px; text-align:justify; hyphens:auto}
-  .lead::first-letter{font-family:'Playfair Display',serif; font-weight:900; float:left;
+  .lead::first-letter{font-family:'Roboto',sans-serif; font-weight:900; float:left;
     font-size:62px; line-height:.7; padding:6px 8px 0 0; color:var(--accent)}
-  .byline{font-family:'Old Standard TT',serif; font-size:12px; letter-spacing:1px;
+  .byline{font-family:'Roboto',sans-serif; font-size:12px; letter-spacing:1px;
     text-transform:uppercase; color:var(--faint); text-align:center; margin-bottom:14px}
   /* ---- Forms / buttons ---- */
-  label.lbl{display:block; font-family:'Old Standard TT',serif; text-transform:uppercase;
+  label.lbl{display:block; font-family:'Roboto',sans-serif; text-transform:uppercase;
     letter-spacing:2px; font-size:11px; color:var(--ink-soft); margin-bottom:6px}
   .input{width:100%; background:#fbf8ef; border:1px solid var(--ink); color:var(--ink);
     padding:12px 14px; font-size:17px; font-family:inherit; margin-bottom:14px}
   .input:focus{outline:none; box-shadow:inset 0 0 0 1px var(--ink)}
   textarea.input{min-height:110px; font-family:'Courier New',monospace; font-size:12px; resize:vertical}
   .btn{display:inline-block; background:var(--ink); color:var(--paper); border:1px solid var(--ink);
-    padding:12px 22px; font-family:'Old Standard TT',serif; text-transform:uppercase;
+    padding:12px 22px; font-family:'Roboto',sans-serif; text-transform:uppercase;
     letter-spacing:2px; font-size:13px; font-weight:700; cursor:pointer; transition:.15s; width:100%}
   .btn:hover{background:var(--accent); border-color:var(--accent)}
   .btn:disabled{opacity:.35; cursor:not-allowed}
@@ -85,8 +85,8 @@
   .strip{display:flex; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink); margin:20px 0}
   .strip .cell{flex:1; text-align:center; padding:14px 8px; border-right:1px solid var(--hair)}
   .strip .cell:last-child{border-right:none}
-  .strip b{display:block; font-family:'Playfair Display',serif; font-weight:900; font-size:34px}
-  .strip small{font-family:'Old Standard TT',serif; text-transform:uppercase; letter-spacing:2px;
+  .strip b{display:block; font-family:'Roboto',sans-serif; font-weight:900; font-size:34px}
+  .strip small{font-family:'Roboto',sans-serif; text-transform:uppercase; letter-spacing:2px;
     font-size:10px; color:var(--ink-soft)}
   /* ---- Teams index ---- */
   .index{column-count:4; column-gap:22px; column-rule:1px solid var(--hair)}
@@ -101,8 +101,8 @@
   .person{break-inside:avoid; border:1px solid var(--ink); padding:16px; margin-bottom:18px; background:#fbf8ef}
   .articles{column-count:2; column-gap:22px}
   @media(max-width:680px){.articles{column-count:1}}
-  .person .who{font-family:'Playfair Display',serif; font-weight:900; font-size:22px; line-height:1}
-  .person .meta{font-family:'Old Standard TT',serif; font-style:italic; color:var(--faint);
+  .person .who{font-family:'Roboto',sans-serif; font-weight:900; font-size:22px; line-height:1}
+  .person .meta{font-family:'Roboto',sans-serif; font-style:italic; color:var(--faint);
     font-size:12px; margin:2px 0 10px; border-bottom:1px solid var(--hair); padding-bottom:8px}
   .person .crest{float:right; width:62px; height:62px; margin:0 0 6px 10px; border:1px solid var(--ink)}
   .teamlist{font-size:15px}
@@ -114,26 +114,26 @@
   .box{background:var(--paper); border:1px solid var(--ink);
     box-shadow:6px 8px 0 rgba(26,24,20,.25); max-width:560px; width:100%;
     max-height:88vh; overflow:auto; padding:26px 30px}
-  .box .x{float:right; background:none; border:none; font-family:'Playfair Display',serif;
+  .box .x{float:right; background:none; border:none; font-family:'Roboto',sans-serif;
     font-size:30px; line-height:.6; cursor:pointer; color:var(--ink)}
   .box .x:hover{color:var(--accent)}
   .fact{border-top:1px solid var(--hair); padding:12px 0}
-  .fact .ft{font-family:'Old Standard TT',serif; text-transform:uppercase; letter-spacing:2px;
+  .fact .ft{font-family:'Roboto',sans-serif; text-transform:uppercase; letter-spacing:2px;
     font-size:10px; color:var(--accent); font-weight:700; margin-bottom:2px}
   .fact .fv{font-size:19px}
-  .pill{display:inline-block; border:1px solid var(--ink); font-family:'Old Standard TT',serif;
+  .pill{display:inline-block; border:1px solid var(--ink); font-family:'Roboto',sans-serif;
     text-transform:uppercase; letter-spacing:2px; font-size:10px; padding:3px 10px; margin-bottom:8px}
   .foot{border-top:3px double var(--ink); margin-top:30px; padding-top:14px; text-align:center;
-    font-family:'Old Standard TT',serif; font-style:italic; font-size:12px; color:var(--faint); line-height:1.7}
+    font-family:'Roboto',sans-serif; font-style:italic; font-size:12px; color:var(--faint); line-height:1.7}
   code{font-family:'Courier New',monospace; background:#e7dec9; padding:1px 4px}
   .who-link{color:inherit; text-decoration:none; border-bottom:2px solid var(--accent)}
   .who-link:hover{color:var(--accent)}
   .standings{width:100%; border-collapse:collapse; font-size:16px; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink)}
-  .standings th{font-family:'Old Standard TT',serif; text-transform:uppercase; letter-spacing:1px;
+  .standings th{font-family:'Roboto',sans-serif; text-transform:uppercase; letter-spacing:1px;
     font-size:10px; color:var(--ink-soft); text-align:left; padding:8px 10px; border-bottom:1px solid var(--ink)}
   .standings td{padding:9px 10px; border-bottom:1px dotted var(--hair); cursor:pointer}
   .standings tr:hover td{background:#efe7d4; color:var(--accent)}
-  .standings .rk{font-family:'Playfair Display',serif; font-weight:900; font-size:18px; width:54px}
+  .standings .rk{font-family:'Roboto',sans-serif; font-weight:900; font-size:18px; width:54px}
   .standings .fl{font-size:15px}
   .standings .more{text-align:right; font-style:italic; color:var(--faint); font-size:13px; width:64px}
   a.btn{text-decoration:none; text-align:center}
@@ -215,7 +215,7 @@ return {allocations:allocations,unallocated:t.slice(idx)};
 }
 
 /* ===== Render ===== */
-var state={admin:false,authed:false,clicks:0,submitted:false,draw:null,_country:null,_copied:false,_publishing:false,_publishOk:false,_publishErr:''};
+var state={admin:false,authed:false,clicks:0,submitted:false,draw:null,_country:null,_copied:false,_publishing:false,_publishOk:false,_publishErr:'',_resetting:false};
 
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
 function getEntries(){try{return JSON.parse(localStorage.getItem(LS_KEY)||"[]");}catch(e){return [];}}
@@ -324,7 +324,7 @@ return '<div class="modal" onclick="if(event.target===this)closeCountry()">'+
 '<div class="box"><button class="x" onclick="closeCountry()">&times;</button>'+
 '<div style="font-size:44px;line-height:1">'+(FLAGS[name]||"")+'</div>'+
 '<div class="pill">From the Almanac</div>'+
-'<h2 style="font-family:\'Playfair Display\',serif;font-weight:900;font-size:34px;margin:2px 0 10px">'+esc(name)+'</h2>'+
+'<h2 style="font-family:\'Roboto\',sans-serif;font-weight:900;font-size:34px;margin:2px 0 10px">'+esc(name)+'</h2>'+
 '<div class="fact"><div class="ft">FIFA World Ranking</div><div class="fv">'+(FIFA_RANK[name]?("No. "+FIFA_RANK[name]+" in the world"):"&mdash;")+'</div></div>'+
 '<div class="fact"><div class="ft">National Animal</div><div class="fv">'+esc(d.animal||"&mdash;")+'</div></div>'+
 '<div class="fact"><div class="ft">Iconic Recording Artist</div><div class="fv">'+esc(d.artist||"&mdash;")+'</div></div>'+
@@ -335,7 +335,7 @@ function adminModalHTML(){
 var entries=getEntries();
 var inner='<button class="x" onclick="closeAdmin()">&times;</button>'+
 '<div class="pill">Editor\'s Desk</div>'+
-'<h2 style="font-family:\'Playfair Display\',serif;font-weight:900;font-size:30px;margin:2px 0 14px">Organiser Control</h2>';
+'<h2 style="font-family:\'Roboto\',sans-serif;font-weight:900;font-size:30px;margin:2px 0 14px">Organiser Control</h2>';
 if(!state.authed){
 inner+='<label class="lbl">Admin Code</label>'+
 '<input class="input" id="acode" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" onkeydown="if(event.key===\'Enter\')tryAuth()">'+
@@ -364,7 +364,9 @@ inner+='<div class="section-rule"><span>Publish to GitHub Pages</span></div>'+
 '<button class="btn" onclick="publishDraw()" '+(state._publishing?'disabled':'')+'>'+
 (state._publishing?'Publishing&hellip;':'Publish Draw &mdash; Everyone Sees It')+'</button>'+
 (state._publishOk?'<p style="color:green;margin-top:10px;font-style:italic">&#10003; Published! The page updates for all visitors within about a minute.</p>':'')+
-(state._publishErr?'<p style="color:var(--accent);margin-top:10px;font-style:italic">Error: '+esc(state._publishErr)+'</p>':'');
+(state._publishErr?'<p style="color:var(--accent);margin-top:10px;font-style:italic">Error: '+esc(state._publishErr)+'</p>':'')+
+'<button class="btn line" style="margin-top:8px;border-color:var(--accent);color:var(--accent)" onclick="resetDraw()" '+(state._resetting?'disabled':'')+'>'+
+(state._resetting?'Resetting&hellip;':'Reset Draw &mdash; Return to Entry Mode')+'</button>';
 }
 inner+='<button class="btn line" style="margin-top:14px" onclick="wipe()">Clear Register on This Device</button>';
 }
@@ -395,38 +397,57 @@ if(state.draw.unallocated&&state.draw.unallocated.length)lines.push("UNCLAIMED\n
 copyText("WORLD CUP SWEEPSTAKES — ALLOCATIONS\n\n"+lines.join("\n\n"));
 state._copied=true;renderModals();setTimeout(function(){state._copied=false;renderModals();},2000);
 }
+function ghToken(){return ((document.getElementById('ghtoken')||{}).value||localStorage.getItem('wcsweep_gh_token')||'').trim();}
+function ghRepo(){
+  var host=location.hostname;
+  var owner=host.indexOf('github.io')>=0?host.split('.')[0]:'barnandbee';
+  var parts=location.pathname.replace(/\/$/,'').split('/').filter(Boolean);
+  return {owner:owner,repo:parts.length?parts[0]:'fellowship'};
+}
+function writeResults(content,commitMsg,onStart,onDone,onErr){
+  var token=ghToken();
+  if(!token){alert('Paste your GitHub personal access token first.');return;}
+  localStorage.setItem('wcsweep_gh_token',token);
+  onStart();
+  var r=ghRepo();
+  var apiBase='https://api.github.com/repos/'+r.owner+'/'+r.repo;
+  var b64=btoa(unescape(encodeURIComponent(content)));
+  fetch(apiBase+'/contents/results.json',{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}})
+    .then(function(res){return res.ok?res.json():null;})
+    .then(function(existing){
+      var body={message:commitMsg,content:b64};
+      if(existing&&existing.sha)body.sha=existing.sha;
+      return fetch(apiBase+'/contents/results.json',{
+        method:'PUT',
+        headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+        body:JSON.stringify(body)
+      });
+    })
+    .then(function(res){
+      if(res&&res.ok){onDone();}
+      else{return (res?res.json():Promise.resolve({message:'Network error'})).then(function(e){onErr(e.message||String(res?res.status:'error'));});}
+    })
+    .catch(function(e){onErr(e.message);});
+}
 function publishDraw(){
-if(!state.draw){alert('Run the draw first.');return;}
-var token=(document.getElementById('ghtoken')||{}).value||localStorage.getItem('wcsweep_gh_token')||'';
-token=token.trim();
-if(!token){alert('Paste your GitHub personal access token first.');return;}
-localStorage.setItem('wcsweep_gh_token',token);
-state._publishing=true;state._publishOk=false;state._publishErr='';
-renderModals();
-var host=location.hostname;
-var owner=host.indexOf('github.io')>=0?host.split('.')[0]:'barnandbee';
-var parts=location.pathname.replace(/\/$/,'').split('/').filter(Boolean);
-var repo=parts.length?parts[0]:'fellowship';
-var apiBase='https://api.github.com/repos/'+owner+'/'+repo;
-var content=JSON.stringify(state.draw,null,2);
-var b64=btoa(unescape(encodeURIComponent(content)));
-fetch(apiBase+'/contents/results.json',{headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}})
-  .then(function(r){return r.ok?r.json():null;})
-  .then(function(existing){
-    var body={message:'publish draw',content:b64};
-    if(existing&&existing.sha)body.sha=existing.sha;
-    return fetch(apiBase+'/contents/results.json',{
-      method:'PUT',
-      headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
-      body:JSON.stringify(body)
-    });
-  })
-  .then(function(r){
-    state._publishing=false;
-    if(r&&r.ok){state._publishOk=true;renderModals();}
-    else{return (r?r.json():Promise.resolve({message:'Network error'})).then(function(e){state._publishErr=e.message||String(r?r.status:'error');renderModals();});}
-  })
-  .catch(function(e){state._publishing=false;state._publishErr=e.message;renderModals();});
+  if(!state.draw){alert('Run the draw first.');return;}
+  writeResults(
+    JSON.stringify(state.draw,null,2),
+    'publish draw',
+    function(){state._publishing=true;state._publishOk=false;state._publishErr='';renderModals();},
+    function(){state._publishing=false;state._publishOk=true;renderModals();},
+    function(msg){state._publishing=false;state._publishErr=msg;renderModals();}
+  );
+}
+function resetDraw(){
+  if(!confirm('Reset the published draw? Everyone will see the entry form again.'))return;
+  writeResults(
+    'null\n',
+    'reset draw',
+    function(){state._resetting=true;state._publishErr='';renderModals();},
+    function(){state._resetting=false;state.draw=null;state._publishOk=false;render();},
+    function(msg){state._resetting=false;state._publishErr=msg;renderModals();}
+  );
 }
 function copyText(txt){
 if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).catch(fb);}else fb();
