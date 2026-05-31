@@ -7,8 +7,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Valid email required" }, { status: 400 });
   }
 
-  const { alreadyExists } = addParticipant(email);
-  const teams = getAssignmentsForEmail(email);
+  const { alreadyExists } = await addParticipant(email);
+  const teams = await getAssignmentsForEmail(email);
 
   return NextResponse.json({ success: true, alreadyExists, teams });
 }

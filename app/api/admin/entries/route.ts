@@ -8,8 +8,10 @@ function isAdmin(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   if (!isAdmin(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  const participants = getAllParticipants();
-  const assignments = getAllAssignments();
-  const assigned = hasAssignments();
+  const [participants, assignments, assigned] = await Promise.all([
+    getAllParticipants(),
+    getAllAssignments(),
+    hasAssignments(),
+  ]);
   return NextResponse.json({ participants, assignments, assigned });
 }

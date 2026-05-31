@@ -19,7 +19,7 @@ function shuffle<T>(arr: T[]): T[] {
 export async function POST(req: NextRequest) {
   if (!isAdmin(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const participants = getAllParticipants();
+  const participants = await getAllParticipants();
   if (participants.length === 0) {
     return NextResponse.json({ error: "No participants to assign" }, { status: 400 });
   }
@@ -37,6 +37,10 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  saveAssignments(assignments);
-  return NextResponse.json({ success: true, teamsPerPerson, remainder: shuffledTeams.length - allocated.length });
+  await saveAssignments(assignments);
+  return NextResponse.json({
+    success: true,
+    teamsPerPerson,
+    remainder: shuffledTeams.length - allocated.length,
+  });
 }
