@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Sweepstakes Gazette</title>
+<title>SWEEPBOARD</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
@@ -144,7 +144,7 @@
   <div class="ear"><span>No. 26 &middot; Final Edition</span><span>Price: One Free Kick</span></div>
   <div class="masthead">
     <div class="kicker">Friends &amp; Community</div>
-    <div class="nameplate" onclick="titleClick()">The Sweepstakes <span class="amp">&amp;</span> Gazette</div>
+    <div class="nameplate" onclick="titleClick()">SWEEPBOARD</div>
     <div class="motto">&ldquo;All the Teams That Are Fit to Draw&rdquo; &middot; Established this season</div>
     <div class="dateline"><span id="dateL">&mdash;</span><span>World Cup Special</span><span id="dateR">Vol. I</span></div>
   </div>
@@ -270,7 +270,7 @@ parts.push('<path d="'+poly(c,c,r,sides,rot,0.12,rnd)+'" fill="none" stroke="'+c
 var orbit=size*0.34;
 for(var j=0;j<nodes;j++){var a=(j/nodes)*Math.PI*2+seed,x=c+Math.cos(a)*orbit,y=c+Math.sin(a)*orbit,rad=1.6+rnd()*2.6;
 parts.push('<line x1="'+c+'" y1="'+c+'" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="'+accent+'" stroke-width="0.5" opacity="0.25"/>');
-parts.push('<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+rad.toFixed(1)+'" fill="'+(j%5===0?spark:accent)+'"/>');}
+parts.push('<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+rad.toFixed(1)+'" fill="'+(j%5===0?spark:accent)+'"/>');}  
 parts.push('<path d="'+poly(c,c,size*0.12,sides,rnd()*6,0.05,rnd)+'" fill="'+spark+'" opacity="0.9"/>');
 parts.push('<circle cx="'+c+'" cy="'+c+'" r="'+(size*0.05).toFixed(1)+'" fill="'+dark+'"/>');
 var grad='<radialGradient id="g'+(seed%1000)+'" cx="50%" cy="40%" r="70%"><stop offset="0%" stop-color="'+accent2+'" stop-opacity="0.35"/><stop offset="100%" stop-color="'+dark+'" stop-opacity="0"/></radialGradient>';
@@ -313,6 +313,7 @@ function render(){
 var app=document.getElementById("app");
 var hash=location.hash||"";
 if(hash.indexOf("#/schedule")===0){renderSchedule();return;}
+if(hash.indexOf("#/game")===0){renderGame();return;}
 if(hash.indexOf("#/u/")===0){
 var who=decodeURIComponent(hash.slice(4));
 renderProfile(who);
@@ -325,7 +326,7 @@ if(drawn){
 h+='<div class="kicker">Extraordinary Edition</div>';
 h+='<h1 class="headline">The Draw Is In &mdash; Fortunes Are Sealed</h1>';
 h+='<div class="subhead">Forty-eight nations apportioned by the hand of chance; readers may consult the dispatches below.</div>';
-h+='<div class="byline">By Our Sweepstakes Correspondent &middot; Tap any nation for our Almanac notes</div>';
+h+='<div class="byline">By the SWEEPBOARD &middot; Tap any nation for Almanac notes</div>';
 h+='<div class="articles">';
 state.draw.allocations.forEach(function(a){
 var mr=meanRank(a.teams);
@@ -351,7 +352,7 @@ ents.forEach(function(n){h+='<div style="border:1px solid var(--ink);padding:8px
 h+='</div>';
 h+='<p class="byline">Speak to the organiser to join &middot; Draw coming soon</p>';
 }else{
-h+='<div class="kicker">World Cup 2026 &middot; Sweepstakes</div>';
+h+='<div class="kicker">World Cup 2026 &middot; SWEEPBOARD</div>';
 h+='<h1 class="headline">The Draw Is Open</h1>';
 h+='<div class="subhead">Forty-eight nations await their subscribers. Speak to the organiser to enter your name.</div>';
 h+='<p class="byline">48 teams &middot; One draw &middot; Bragging rights until the final whistle</p>';
@@ -366,9 +367,12 @@ h+='<div class="strip">'+
 h+='<div class="section-rule"><span>The Nations &middot; An Almanac</span></div>';
 h+='<p class="byline">Tap any nation below for its beast, its balladeer, and a book</p>';
 h+='<div class="index">'+TEAMS.map(teamEntry).join('')+'</div>';
-h+='<div style="text-align:center;margin:22px 0 0"><a class="btn line sm" href="#/schedule">Full Match Schedule &rarr;</a></div>';
+h+='<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:22px 0 0">'+
+'<a class="btn line sm" href="#/schedule">Full Match Schedule &rarr;</a>'+
+'<a class="btn line sm" href="#/game">Game of Two Halves &rarr;</a>'+
+'</div>';
 
-h+='<div class="foot">The Sweepstakes &amp; Gazette &middot; Made for friends &amp; community.<br>'+
+h+='<div class="foot">SWEEPBOARD &middot; Made for friends &amp; community.<br>'+
 'Almanac notes are light trivia; &ldquo;iconic balladeer&rdquo; denotes a celebrated act, not an audited sales ledger.</div>';
 
 app.innerHTML=h;
@@ -624,14 +628,17 @@ h+='<p class="byline">Highest-ranked: '+esc(best)+' ('+ordinal(FIFA_RANK[best]||
 h+='<div class="section-rule"><span>The Squad &middot; By World Ranking</span></div>';
 h+='<table class="standings"><thead><tr><th>FIFA</th><th>Nation</th><th></th></tr></thead><tbody>';
 sorted.forEach(function(t){
-h+='<tr onclick="showCountry(\'' +t.replace(/'/g,"\\'")+ '\')">'+'<td class="rk">'+(FIFA_RANK[t]||"&mdash;")+'</td>'+'<td><span class="fl">'+(FLAGS[t]||"")+"</span> "+esc(t)+'</td>'+'<td class="more">view &rsaquo;</td></tr>';
+h+='<tr onclick="showCountry(\'' +t.replace(/'/g,"\\'")+ '\')">'
++'<td class="rk">'+(FIFA_RANK[t]||"&mdash;")+'</td>'
++'<td><span class="fl">'+(FLAGS[t]||"")+"</span> "+esc(t)+'</td>'
++'<td class="more">view &rsaquo;</td></tr>';
 });
 h+='</tbody></table>';
 h+='<p class="byline" style="margin-top:10px">Tap any nation for its ranking, national animal, iconic artist, and a novel.</p>';
 h+='<div class="section-rule"><span>Share This Dispatch</span></div>';
 h+='<div style="max-width:520px;margin:0 auto"><input class="input" id="shareUrl" readonly value="" onclick="this.select()">'+
 '<button class="btn" onclick="copyShare()">'+(state._copiedShare?"Link Copied ✓":"Copy Link to This Profile")+'</button></div>';
-h+='<div class="foot">The Sweepstakes &amp; Gazette &middot; FIFA/Coca-Cola World Ranking as of 1 April 2026.</div>';
+h+='<div class="foot">SWEEPBOARD &middot; FIFA/Coca-Cola World Ranking as of 1 April 2026.</div>';
 app.innerHTML=h;
 var su=document.getElementById("shareUrl"); if(su)su.value=location.href;
 setDateline();
@@ -679,6 +686,146 @@ h+='<div class="foot">Schedule based on the official FIFA World Cup 2026 fixture
 app.innerHTML=h;
 setDateline();
 renderModals();
+}
+
+/* ===== Game of Two Halves (Snake) ===== */
+var GOT={COLS:20,ROWS:16,snake:[],dir:{x:1,y:0},nextDir:{x:1,y:0},food:null,score:[0,0],half:1,phase:'ready',startTime:0,halfMs:45000,lastMove:0,moveMs:140,raf:null,cell:28,_kh:null};
+function gotInit(){
+if(GOT.raf)cancelAnimationFrame(GOT.raf);
+if(GOT._kh)document.removeEventListener('keydown',GOT._kh);
+var canvas=document.getElementById('gotCanvas');if(!canvas)return;
+var maxW=Math.min(560,window.innerWidth-40);
+GOT.cell=Math.max(18,Math.floor(maxW/GOT.COLS));
+canvas.width=GOT.COLS*GOT.cell;canvas.height=GOT.ROWS*GOT.cell;
+gotReset(false);
+GOT._kh=function(e){gotKey(e);};document.addEventListener('keydown',GOT._kh);
+var tc=null;
+canvas.ontouchstart=function(e){tc=e.touches[0];e.preventDefault();};
+canvas.ontouchend=function(e){
+  if(!tc)return;
+  var dx=e.changedTouches[0].clientX-tc.clientX,dy=e.changedTouches[0].clientY-tc.clientY;
+  if(Math.abs(dx)<8&&Math.abs(dy)<8){gotAction();}
+  else if(Math.abs(dx)>Math.abs(dy)){gotDir(dx>0?1:-1,0);}
+  else{gotDir(0,dy>0?1:-1);}
+};
+GOT.raf=requestAnimationFrame(gotLoop);
+}
+function gotReset(keepHalf){
+var g=GOT;
+g.snake=[{x:Math.floor(g.COLS/2),y:Math.floor(g.ROWS/2)}];
+g.dir={x:1,y:0};g.nextDir={x:1,y:0};
+if(!keepHalf){g.score=[0,0];g.half=1;}
+g.food=null;g.phase='ready';g.startTime=0;g.lastMove=0;
+gotPlaceFood();
+}
+function gotPlaceFood(){
+var g=GOT,occ={};g.snake.forEach(function(s){occ[s.x+','+s.y]=1;});
+var free=[];for(var x=0;x<g.COLS;x++)for(var y=0;y<g.ROWS;y++)if(!occ[x+','+y])free.push({x:x,y:y});
+g.food=free.length?free[Math.floor(Math.random()*free.length)]:null;
+}
+function gotAction(){
+var g=GOT;
+if(g.phase==='ready'){g.phase='playing';g.startTime=Date.now();g.lastMove=Date.now();}
+else if(g.phase==='halftime'){
+  g.snake=[{x:Math.floor(g.COLS/2),y:Math.floor(g.ROWS/2)}];
+  g.dir={x:1,y:0};g.nextDir={x:1,y:0};gotPlaceFood();
+  g.phase='playing';g.startTime=Date.now();g.lastMove=Date.now();
+}
+else if(g.phase==='gameover'||g.phase==='fulltime'){gotReset(false);}
+}
+function gotDir(dx,dy){
+var g=GOT;
+if(g.phase==='ready'||g.phase==='halftime'){gotAction();}
+if(g.phase!=='playing')return;
+if(dx!==0&&dx===-g.dir.x)return;
+if(dy!==0&&dy===-g.dir.y)return;
+g.nextDir={x:dx,y:dy};
+}
+function gotKey(e){
+var map={'ArrowUp':[0,-1],'ArrowDown':[0,1],'ArrowLeft':[-1,0],'ArrowRight':[1,0],'w':[0,-1],'s':[0,1],'a':[-1,0],'d':[1,0]};
+if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].indexOf(e.key)>=0)e.preventDefault();
+if(e.key===' '||e.key==='Enter'){gotAction();return;}
+var d=map[e.key];if(d)gotDir(d[0],d[1]);
+}
+function gotLoop(){
+var canvas=document.getElementById('gotCanvas');
+if(!canvas){if(GOT._kh)document.removeEventListener('keydown',GOT._kh);return;}
+var ctx=canvas.getContext('2d'),g=GOT,now=Date.now();
+if(g.phase==='playing'){
+  if(now-g.startTime>=g.halfMs){
+    if(g.half===1){g.phase='halftime';g.half=2;}else{g.phase='fulltime';}
+  } else if(now-g.lastMove>=g.moveMs){g.lastMove=now;gotAdvance();}
+}
+gotDraw(ctx);
+g.raf=requestAnimationFrame(gotLoop);
+}
+function gotAdvance(){
+var g=GOT;g.dir=g.nextDir;
+var head={x:g.snake[0].x+g.dir.x,y:g.snake[0].y+g.dir.y};
+if(head.x<0||head.x>=g.COLS||head.y<0||head.y>=g.ROWS){g.phase='gameover';return;}
+for(var i=0;i<g.snake.length;i++)if(g.snake[i].x===head.x&&g.snake[i].y===head.y){g.phase='gameover';return;}
+g.snake.unshift(head);
+if(g.food&&head.x===g.food.x&&head.y===g.food.y){g.score[g.half-1]=(g.score[g.half-1]||0)+1;gotPlaceFood();}
+else{g.snake.pop();}
+}
+function gotDraw(ctx){
+var g=GOT,C=g.cell,W=g.COLS*C,H=g.ROWS*C;
+ctx.fillStyle='#1e7a1e';ctx.fillRect(0,0,W,H);
+for(var i=0;i<g.ROWS;i++){if(i%2===0){ctx.fillStyle='rgba(0,0,0,0.07)';ctx.fillRect(0,i*C,W,C);}}
+ctx.strokeStyle='rgba(255,255,255,0.18)';ctx.lineWidth=1;
+ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,H);ctx.stroke();
+ctx.beginPath();ctx.arc(W/2,H/2,C*2.5,0,Math.PI*2);ctx.stroke();
+ctx.strokeRect(C*0.5,C*0.5,W-C,H-C);
+if(g.food){
+  ctx.font=Math.floor(C*0.82)+'px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('🥅',(g.food.x+0.5)*C,(g.food.y+0.5)*C);
+}
+ctx.textAlign='center';ctx.textBaseline='middle';
+for(var j=g.snake.length-1;j>=0;j--){
+  ctx.font=Math.floor(j===0?C*0.88:C*0.72)+'px serif';
+  ctx.fillText('⚽',(g.snake[j].x+0.5)*C,(g.snake[j].y+0.5)*C);
+}
+var now=Date.now(),rem=g.startTime>0?Math.max(0,g.halfMs-(now-g.startTime)):g.halfMs;
+var ss=Math.floor(rem/1000),mm=Math.floor(ss/60);ss=ss%60;
+var hudH=Math.floor(C*1.5);
+ctx.fillStyle='rgba(0,0,0,0.58)';ctx.fillRect(0,0,W,hudH);
+ctx.fillStyle='#fff';ctx.font='bold '+Math.floor(C*0.62)+'px Roboto,sans-serif';
+ctx.textAlign='left';ctx.fillText((g.half===1?'1ST':'2ND')+' HALF',6,Math.floor(hudH*0.65));
+ctx.textAlign='center';ctx.fillText((g.score[0]||0)+'–'+(g.score[1]||0),W/2,Math.floor(hudH*0.65));
+ctx.textAlign='right';ctx.fillText((mm>0?mm+':':'')+(ss<10?'0':'')+ss,W-6,Math.floor(hudH*0.65));
+if(g.phase==='ready')gotOverlay(ctx,W,H,'⚽','GAME OF TWO HALVES','Arrow keys or swipe to move\nSpace or tap to kick off');
+else if(g.phase==='halftime')gotOverlay(ctx,W,H,'⏸','HALF TIME','1st half: '+(g.score[0]||0)+' goal'+(g.score[0]!==1?'s':'')+' \nSpace or tap for 2nd half');
+else if(g.phase==='gameover')gotOverlay(ctx,W,H,'😬','SENT OFF!','Hit a wall or yourself\nSpace or tap to restart');
+else if(g.phase==='fulltime'){var tot=(g.score[0]||0)+(g.score[1]||0);gotOverlay(ctx,W,H,'🏆','FULL TIME',tot+' goal'+(tot!==1?'s':'')+' — '+g.score[0]+' + '+g.score[1]+'\nSpace or tap to play again');}
+}
+function gotOverlay(ctx,W,H,emoji,title,sub){
+var C=GOT.cell,midY=H/2;
+ctx.fillStyle='rgba(0,0,0,0.7)';ctx.fillRect(0,0,W,H);
+ctx.textAlign='center';ctx.textBaseline='middle';
+ctx.font=Math.floor(C*1.9)+'px serif';ctx.fillText(emoji,W/2,midY-Math.floor(C*2));
+ctx.font='bold '+Math.floor(C*1.1)+'px Roboto,sans-serif';ctx.fillStyle='#fff';
+ctx.fillText(title,W/2,midY-Math.floor(C*0.4));
+var lines=sub.split('\n');ctx.font=Math.floor(C*0.62)+'px Roboto,sans-serif';ctx.fillStyle='rgba(255,255,255,0.82)';
+lines.forEach(function(line,i){ctx.fillText(line,W/2,midY+Math.floor(C*(0.65+i*0.95)));});
+}
+function renderGame(){
+var app=document.getElementById('app');
+var h='';
+h+='<div style="text-align:center;margin-bottom:10px"><a class="btn line sm" href="#/">&#8592; Front Page</a></div>';
+h+='<div class="kicker" style="margin-top:8px">Community Challenge</div>';
+h+='<h1 class="headline">Game of Two Halves</h1>';
+h+='<div class="subhead">Snake with a ⚽ &mdash; score before the whistle</div>';
+h+='<canvas id="gotCanvas" style="display:block;margin:14px auto 0;max-width:100%;touch-action:none;border:2px solid var(--ink)"></canvas>';
+h+='<div style="display:flex;justify-content:center;margin:12px 0">';
+h+='<div style="display:grid;grid-template-areas:\'. u .\' \'l d r\';grid-template-columns:repeat(3,48px);grid-template-rows:repeat(2,48px);gap:4px">';
+h+='<button class="btn line sm" style="grid-area:u;width:48px;height:48px;padding:0;font-size:22px" onclick="gotDir(0,-1)">▲</button>';
+h+='<button class="btn line sm" style="grid-area:l;width:48px;height:48px;padding:0;font-size:22px" onclick="gotDir(-1,0)">◀</button>';
+h+='<button class="btn line sm" style="grid-area:d;width:48px;height:48px;padding:0;font-size:22px" onclick="gotDir(0,1)">▼</button>';
+h+='<button class="btn line sm" style="grid-area:r;width:48px;height:48px;padding:0;font-size:22px" onclick="gotDir(1,0)">▶</button>';
+h+='</div></div>';
+h+='<div class="foot">⚽ = snake &middot; 🥅 = goal &middot; Two 45-second halves &middot; Avoid walls and yourself</div>';
+app.innerHTML=h;
+gotInit();
 }
 
 /* ===== Router ===== */
