@@ -215,43 +215,43 @@ var RESULTS = null;
 var GROUPS_MEMBERS={"A":["Mexico","South Korea","Czech Republic","South Africa"],"B":["Canada","Bosnia and Herzegovina","Qatar","Switzerland"],"C":["Brazil","Morocco","Haiti","Scotland"],"D":["United States","Paraguay","Australia","Turkey"],"E":["Germany","Curaçao","Ivory Coast","Ecuador"],"F":["Netherlands","Japan","Sweden","Tunisia"],"G":["Belgium","Egypt","Iran","New Zealand"],"H":["Spain","Cape Verde","Saudi Arabia","Uruguay"],"I":["France","Senegal","Iraq","Norway"],"J":["Argentina","Algeria","Austria","Jordan"],"K":["Portugal","DR Congo","Uzbekistan","Colombia"],"L":["England","Croatia","Ghana","Panama"]};
 var GROUPS={};(function(){Object.keys(GROUPS_MEMBERS).forEach(function(g){GROUPS_MEMBERS[g].forEach(function(t){GROUPS[t]=g;});});})();
 var FIXTURES=[
-{d:"11 Jun",h:"Mexico",a:"South Africa",v:"Mexico City",g:"A"},
-{d:"11 Jun",h:"South Korea",a:"Czech Republic",v:"Guadalajara",g:"A"},
+{d:"11 Jun",h:"Mexico",a:"South Africa",v:"Mexico City",g:"A",hs:2,as:0},
+{d:"11 Jun",h:"South Korea",a:"Czech Republic",v:"Guadalajara",g:"A",hs:2,as:1},
 {d:"18 Jun",h:"Mexico",a:"South Korea",v:"Guadalajara",g:"A"},
 {d:"18 Jun",h:"Czech Republic",a:"South Africa",v:"Atlanta",g:"A"},
 {d:"24 Jun",h:"Czech Republic",a:"Mexico",v:"Mexico City",g:"A"},
 {d:"24 Jun",h:"South Africa",a:"South Korea",v:"Monterrey",g:"A"},
-{d:"12 Jun",h:"Canada",a:"Bosnia and Herzegovina",v:"Toronto",g:"B"},
-{d:"13 Jun",h:"Qatar",a:"Switzerland",v:"San Francisco",g:"B"},
+{d:"12 Jun",h:"Canada",a:"Bosnia and Herzegovina",v:"Toronto",g:"B",hs:1,as:1},
+{d:"13 Jun",h:"Qatar",a:"Switzerland",v:"San Francisco",g:"B",hs:1,as:1},
 {d:"18 Jun",h:"Canada",a:"Qatar",v:"Vancouver",g:"B"},
 {d:"18 Jun",h:"Switzerland",a:"Bosnia and Herzegovina",v:"Los Angeles",g:"B"},
 {d:"24 Jun",h:"Switzerland",a:"Canada",v:"Vancouver",g:"B"},
 {d:"24 Jun",h:"Bosnia and Herzegovina",a:"Qatar",v:"Seattle",g:"B"},
-{d:"13 Jun",h:"Brazil",a:"Morocco",v:"New York",g:"C"},
-{d:"13 Jun",h:"Haiti",a:"Scotland",v:"Boston",g:"C"},
+{d:"13 Jun",h:"Brazil",a:"Morocco",v:"New York",g:"C",hs:1,as:1},
+{d:"13 Jun",h:"Haiti",a:"Scotland",v:"Boston",g:"C",hs:0,as:1},
 {d:"19 Jun",h:"Brazil",a:"Haiti",v:"Philadelphia",g:"C"},
 {d:"19 Jun",h:"Scotland",a:"Morocco",v:"Boston",g:"C"},
 {d:"24 Jun",h:"Morocco",a:"Haiti",v:"Atlanta",g:"C"},
 {d:"24 Jun",h:"Scotland",a:"Brazil",v:"Miami",g:"C"},
-{d:"12 Jun",h:"United States",a:"Paraguay",v:"Los Angeles",g:"D"},
-{d:"13 Jun",h:"Australia",a:"Turkey",v:"Vancouver",g:"D"},
+{d:"12 Jun",h:"United States",a:"Paraguay",v:"Los Angeles",g:"D",hs:4,as:1},
+{d:"13 Jun",h:"Australia",a:"Turkey",v:"Vancouver",g:"D",hs:2,as:0},
 {d:"19 Jun",h:"United States",a:"Australia",v:"Seattle",g:"D"},
 {d:"19 Jun",h:"Turkey",a:"Paraguay",v:"San Francisco",g:"D"},
 {d:"25 Jun",h:"Turkey",a:"United States",v:"Los Angeles",g:"D"},
 {d:"25 Jun",h:"Paraguay",a:"Australia",v:"San Francisco",g:"D"},
-{d:"14 Jun",h:"Germany",a:"Curaçao",v:"Houston",g:"E"},
-{d:"14 Jun",h:"Ivory Coast",a:"Ecuador",v:"Philadelphia",g:"E"},
+{d:"14 Jun",h:"Germany",a:"Curaçao",v:"Houston",g:"E",hs:7,as:1},
+{d:"14 Jun",h:"Ivory Coast",a:"Ecuador",v:"Philadelphia",g:"E",hs:1,as:0},
 {d:"20 Jun",h:"Germany",a:"Ivory Coast",v:"Toronto",g:"E"},
 {d:"20 Jun",h:"Ecuador",a:"Curaçao",v:"Kansas City",g:"E"},
 {d:"25 Jun",h:"Curaçao",a:"Ivory Coast",v:"Philadelphia",g:"E"},
 {d:"25 Jun",h:"Ecuador",a:"Germany",v:"New York",g:"E"},
-{d:"14 Jun",h:"Netherlands",a:"Japan",v:"Dallas",g:"F"},
-{d:"14 Jun",h:"Sweden",a:"Tunisia",v:"Monterrey",g:"F"},
+{d:"14 Jun",h:"Netherlands",a:"Japan",v:"Dallas",g:"F",hs:2,as:2},
+{d:"14 Jun",h:"Sweden",a:"Tunisia",v:"Monterrey",g:"F",hs:5,as:1},
 {d:"20 Jun",h:"Netherlands",a:"Sweden",v:"Houston",g:"F"},
 {d:"20 Jun",h:"Tunisia",a:"Japan",v:"Monterrey",g:"F"},
 {d:"25 Jun",h:"Japan",a:"Sweden",v:"Dallas",g:"F"},
 {d:"25 Jun",h:"Tunisia",a:"Netherlands",v:"Kansas City",g:"F"},
-{d:"15 Jun",h:"Belgium",a:"Egypt",v:"Seattle",g:"G"},
+{d:"15 Jun",h:"Belgium",a:"Egypt",v:"Seattle",g:"G",hs:1,as:1},
 {d:"15 Jun",h:"Iran",a:"New Zealand",v:"Los Angeles",g:"G"},
 {d:"21 Jun",h:"Belgium",a:"Iran",v:"Los Angeles",g:"G"},
 {d:"21 Jun",h:"New Zealand",a:"Egypt",v:"Vancouver",g:"G"},
@@ -755,10 +755,12 @@ h+='<div style="margin-bottom:22px">';
 h+='<div style="font-family:\'Roboto\',sans-serif;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:3px;border-bottom:2px solid var(--ink);padding-bottom:5px;margin-bottom:8px">Group '+g+' &mdash; '+members.map(function(t){return (FLAGS[t]||'')+' '+t;}).join(' &middot; ')+'</div>';
 h+='<table class="sched-table">';
 matches.forEach(function(f){
+var played=(typeof f.hs==='number'&&typeof f.as==='number');
+var vsCell=played?('<strong style="font-size:14px;color:var(--ink)">'+f.hs+' &ndash; '+f.as+'</strong>'):'vs';
 h+='<tr style="border-bottom:1px dotted var(--hair)">'+
 '<td class="sched-date">'+esc(f.d)+'</td>'+
 '<td class="sched-team sched-home">'+homeCell(f.h)+'</td>'+
-'<td class="sched-vs">vs</td>'+
+'<td class="sched-vs">'+vsCell+'</td>'+
 '<td class="sched-team">'+awayCell(f.a)+'</td>'+
 '<td class="sched-venue">'+esc(f.v||'')+'</td>'+
 '</tr>';
