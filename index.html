@@ -137,6 +137,11 @@
   .standings .rk{font-family:'Roboto',sans-serif; font-weight:900; font-size:18px; width:54px}
   .standings .fl{font-size:15px}
   .standings .more{text-align:right; font-style:italic; color:var(--faint); font-size:13px; width:64px}
+  .table-scroll{width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch}
+  .h2h-table{font-size:14px}
+  .h2h-table th,.h2h-table td{padding:8px 9px; white-space:nowrap}
+  .h2h-table .rk{width:auto; text-align:center}
+  @media(max-width:540px){.h2h-table{font-size:12px}.h2h-table th,.h2h-table td{padding:6px 5px}}
   a.btn{text-decoration:none; text-align:center}
   /* ==== Dark mode ==== */
   [data-theme="dark"]{
@@ -821,14 +826,14 @@ app.innerHTML=h;setDateline();renderModals();return;
 }
 var table=computeH2H();
 var medals=['&#129351;','&#129352;','&#129353;'];
-h+='<table class="standings"><thead><tr><th>#</th><th>Name</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead><tbody>';
+h+='<div class="table-scroll"><table class="standings h2h-table"><thead><tr><th>#</th><th>Name</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead><tbody>';
 table.forEach(function(s,i){
 var rankLabel=i<3?medals[i]:(i===table.length-1?'&#129397;':String(i+1));
 h+='<tr><td class="rk">'+rankLabel+'</td>'+
 '<td><a class="who-link" href="#/u/'+encodeURIComponent(s.name)+'">'+esc(s.name)+'</a></td>'+
 '<td>'+s.p+'</td><td>'+s.w+'</td><td>'+s.d+'</td><td>'+s.l+'</td><td>'+s.gf+'</td><td>'+s.ga+'</td><td>'+(s.gd>0?'+':'')+s.gd+'</td><td><strong>'+s.pts+'</strong></td></tr>';
 });
-h+='</tbody></table>';
+h+='</tbody></table></div>';
 h+='<p class="byline" style="margin-top:10px">Points: win = 3, draw = 1, loss = 0 &middot; based on completed group-stage fixtures only.</p>';
 h+='<div class="foot">SWEEPBOARD &middot; Head to Head updates as match scores are added.</div>';
 app.innerHTML=h;
