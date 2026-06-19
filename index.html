@@ -362,6 +362,7 @@ function render(){
 var app=document.getElementById("app");
 var hash=location.hash||"";
 if(hash.indexOf("#/schedule")===0){renderSchedule();return;}
+if(hash.indexOf("#/h2h")===0){renderHeadToHead();return;}
 if(hash.indexOf("#/game")===0){renderGame();return;}
 if(hash.indexOf("#/u/")===0){
 var who=decodeURIComponent(hash.slice(4));
@@ -418,6 +419,7 @@ h+='<p class="byline">Tap any nation below for its beast, its balladeer, and a b
 h+='<div class="index">'+TEAMS.map(teamEntry).join('')+'</div>';
 h+='<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:22px 0 0">'+
 '<a class="btn line sm" href="#/schedule">Full Match Schedule &rarr;</a>'+
+'<a class="btn line sm" href="#/h2h">Head to Head &rarr;</a>'+
 '<a class="btn line sm" href="#/game">Game of Two Halves &rarr;</a>'+
 '</div>';
 
@@ -778,6 +780,57 @@ h+='<tr style="border-bottom:1px dotted var(--hair)">'+
 });
 h+='</table>';
 h+='<div class="foot">Schedule based on the official FIFA World Cup 2026 fixture list. Knockout opponents confirmed after the group stage.</div>';
+app.innerHTML=h;
+setDateline();
+renderModals();
+}
+
+/* ===== Head to Head page ===== */
+function computeH2H(){
+if(!state.draw||!state.draw.allocations)return [];
+var owners={};
+state.draw.allocations.forEach(function(a){a.teams.forEach(function(t){owners[t]=a.name;});});
+var stats={};
+state.draw.allocations.forEach(function(a){stats[a.name]={name:a.name,p:0,w:0,d:0,l:0,gf:0,ga:0};});
+FIXTURES.forEach(function(f){
+if(typeof f.hs!=='number'||typeof f.as!=='number'||!f.h||!f.a)return;
+[{team:f.h,gf:f.hs,ga:f.as},{team:f.a,gf:f.as,ga:f.hs}].forEach(function(side){
+var owner=owners[side.team];
+if(!owner)return;
+var s=stats[owner];
+s.p++;s.gf+=side.gf;s.ga+=side.ga;
+if(side.gf>side.ga)s.w++;else if(side.gf===side.ga)s.d++;else s.l++;
+});
+});
+var arr=Object.keys(stats).map(function(k){return stats[k];});
+arr.forEach(function(s){s.gd=s.gf-s.ga;s.pts=s.w*3+s.d;});
+arr.sort(function(x,y){return y.pts-x.pts||y.gd-x.gd||y.gf-x.gf||x.name.localeCompare(y.name);});
+return arr;
+}
+function renderHeadToHead(){
+var app=document.getElementById('app');
+var h='';
+h+='<div style="text-align:center"><a class="btn line sm" href="#/">&#8592; The Front Page</a></div>';
+h+='<div class="kicker" style="margin-top:14px">World Cup 2026</div>';
+h+='<h1 class="headline">Head to Head</h1>';
+h+='<div class="subhead">How every subscriber\'s squad is faring, match by match.</div>';
+var hasDraw=!!(state.draw&&state.draw.allocations);
+if(!hasDraw){
+h+='<p class="byline" style="margin-top:18px;text-align:center">Head to Head unlocks once the draw is published.</p>';
+app.innerHTML=h;setDateline();renderModals();return;
+}
+var table=computeH2H();
+var medals=['&#129351;','&#129352;','&#129353;'];
+h+='<table class="standings"><thead><tr><th>#</th><th>Name</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead><tbody>';
+table.forEach(function(s,i){
+var rankLabel=i<3?medals[i]:(i===table.length-1?'&#129397;':String(i+1));
+h+='<tr><td class="rk">'+rankLabel+'</td>'+
+'<td><a class="who-link" href="#/u/'+encodeURIComponent(s.name)+'">'+esc(s.name)+'</a></td>'+
+'<td>'+s.p+'</td><td>'+s.w+'</td><td>'+s.d+'</td><td>'+s.l+'</td><td>'+s.gf+'</td><td>'+s.ga+'</td><td>'+(s.gd>0?'+':'')+s.gd+'</td><td><strong>'+s.pts+'</strong></td></tr>';
+});
+h+='</tbody></table>';
+h+='<p class="byline" style="margin-top:10px">Points: win = 3, draw = 1, loss = 0 &middot; based on completed group-stage fixtures only.</p>';
+h+='<div class="foot">SWEEPBOARD &middot; Head to Head updates as match scores are added.</div>';
 app.innerHTML=h;
 setDateline();
 renderModals();
