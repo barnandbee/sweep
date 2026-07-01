@@ -293,6 +293,13 @@ var FIXTURES=[
 {d:"27 Jun",h:"Panama",a:"England",v:"New York",g:"L",hs:0,as:2},
 {d:"27 Jun",h:"Croatia",a:"Ghana",v:"Philadelphia",g:"L",hs:2,as:1},
 {d:"28 Jun–3 Jul",label:"Round of 32",round:"R32",note:"Top 2 per group + 8 best 3rd-place · 16 matches"},
+{d:"28 Jun",h:"South Africa",a:"Canada",v:"",round:"R32",hs:0,as:1},
+{d:"29 Jun",h:"Brazil",a:"Japan",v:"",round:"R32",hs:2,as:1},
+{d:"29 Jun",h:"Netherlands",a:"Morocco",v:"",round:"R32",hs:1,as:1,pen:"Morocco win 3-2 pens"},
+{d:"29 Jun",h:"Germany",a:"Paraguay",v:"",round:"R32",hs:1,as:1,pen:"Paraguay win 4-3 pens"},
+{d:"30 Jun",h:"France",a:"Sweden",v:"New York",round:"R32",hs:3,as:0},
+{d:"30 Jun",h:"Ivory Coast",a:"Norway",v:"Dallas",round:"R32",hs:1,as:2},
+{d:"30 Jun",h:"Mexico",a:"Ecuador",v:"Mexico City",round:"R32",hs:2,as:0},
 {d:"4–7 Jul",label:"Round of 16",round:"R16",note:"8 matches"},
 {d:"9–11 Jul",label:"Quarter-Finals",round:"QF",note:"4 matches"},
 {d:"14 Jul",label:"Semi-Final 1",v:"Dallas",round:"SF"},
@@ -775,15 +782,26 @@ h+='<tr style="border-bottom:1px dotted var(--hair)">'+
 h+='</table></div>';
 });
 h+='<div class="section-rule"><span>Knockout Rounds &middot; 28 June &ndash; 19 July</span></div>';
-h+='<table style="width:100%;border-collapse:collapse">';
+var _koInTable=false;
 FIXTURES.filter(function(f){return !!f.round;}).forEach(function(f){
+if(!f.h){
+if(_koInTable){h+='</table>';_koInTable=false;}
+h+='<div style="font-family:\'Roboto\',sans-serif;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:3px;border-bottom:2px solid var(--ink);padding-bottom:5px;margin:18px 0 8px">'+esc(f.label||'')+(f.note?' <span style="font-weight:400;color:var(--faint)">'+esc(f.note)+'</span>':'')+(f.v&&!f.note?' <span style="font-weight:400;color:var(--faint)">'+esc(f.v)+'</span>':'')+'</div>';
+}else{
+if(!_koInTable){h+='<table class="sched-table">';_koInTable=true;}
+var played=(typeof f.hs==='number'&&typeof f.as==='number');
+var scoreStr=f.hs+'&ndash;'+f.as+(f.pen?' <span style="font-size:11px;font-weight:400;color:var(--faint)">('+esc(f.pen)+')</span>':'');
+var vsCell=played?('<strong style="font-size:14px;color:var(--ink)">'+scoreStr+'</strong>'):'vs';
 h+='<tr style="border-bottom:1px dotted var(--hair)">'+
-'<td style="padding:10px 8px 10px 0;font-size:12px;color:var(--faint);white-space:nowrap;width:100px">'+esc(f.d)+'</td>'+
-'<td style="padding:10px 4px;font-size:16px;font-weight:700">'+esc(f.label||'')+'</td>'+
-'<td style="padding:10px 0 10px 8px;font-size:12px;color:var(--faint);text-align:right">'+esc(f.v||f.note||'')+'</td>'+
+'<td class="sched-date">'+esc(f.d)+'</td>'+
+'<td class="sched-team sched-home">'+homeCell(f.h)+'</td>'+
+'<td class="sched-vs">'+vsCell+'</td>'+
+'<td class="sched-team">'+awayCell(f.a)+'</td>'+
+'<td class="sched-venue">'+esc(f.v||'')+'</td>'+
 '</tr>';
+}
 });
-h+='</table>';
+if(_koInTable){h+='</table>';}
 h+='<div class="foot">Schedule based on the official FIFA World Cup 2026 fixture list. Knockout opponents confirmed after the group stage.</div>';
 app.innerHTML=h;
 setDateline();
